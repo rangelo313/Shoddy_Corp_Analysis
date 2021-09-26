@@ -1,5 +1,9 @@
+#BUGS
+
 Crash case 1:
 Crash case one was created by setting the value of the num_bytes variable to a negative int and making it exceed the maximum integer value. 
+
+#fix for this case
 
 
 Crash Case 2:
@@ -7,8 +11,7 @@ This case came to my attention as a result of the hint in the header file // BDG
  //           about that comment that says programs must be "VALID"??  I also noticed that program was one of the largest undeclared variables within the writer.c file and I wanted to take advantage of this with fwrite(hang.program, 352,1,fd1); If you'll notice- I allocated more space to this than the program can account for, and this reflects in the file size (504b). As a result- the reader file will run  while (!feof(input_fd)) and while it appears to nearly infinitely loop while debugging (thought I had my hang case here), the while loop is constructed to only go as far as eof file indicator. Since the file is by far too large- this causes num_bytes to overflow to essentially garbage data (-520093696). When attempting to read on this particular line- we will find that fread(ptr, ret_val->num_bytes, 1, input_fd); is attemtping to read from a value of num_bytes that cannot exist (negative value) thus causing a segmentation fault.
 
 
-
-#The Fix
+#Fix
  The fix for this is to allocate the number of bytes appropriate for a file to exist with all of the required bytes- but in the reader file, I did a check before fread to determine whether the number of bytes allocated was appropriate and to ensure that it is not negative.
 
 Hang Case:
