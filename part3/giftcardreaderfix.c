@@ -8,7 +8,7 @@
 
 
 #include "giftcard.h"
-
+#include <math.h>
 #include <stdio.h>
 #include <strings.h>
 
@@ -158,7 +158,8 @@ int get_gift_card_value(struct this_gift_card *thisone) {
     struct gift_card_amount_change *gcac_ptr;
     int ret_count = 0;
 
-    gcd_ptr = thisone->gift_card_data; //can't access memory here causes a segfault
+
+    gcd_ptr = thisone->gift_card_data;
     for(int i=0;i<gcd_ptr->number_of_gift_card_records; i++) {
         gcrd_ptr = (struct gift_card_record_data *) gcd_ptr->gift_card_record_data[i];
         if (gcrd_ptr->type_of_record == 1) {
@@ -183,15 +184,40 @@ struct this_gift_card *gift_card_reader(FILE *input_fd) {
     while (!feof(input_fd)) {
 
         struct gift_card_data *gcd_ptr;
+        double avlue =0;
+        double turnpos=0;
         /* JAC: Why aren't return types checked? */
+        avlue = (double)ret_val->num_bytes;
+        fread(&avlue, 4,1, input_fd);
+     
+        if(ret_val->num_bytes < 0 || avlue >= 2147483646)
+        {
+
+        turnpos = abs(avlue);
+
+      
+
+        // Make something the size of the rest and read it in
+        ptr = malloc(avlue);//0
+        fread(ptr, ret_val->num_bytes, 1, input_fd);
 
 
+
+
+        }
+        else
+        {
         fread(&ret_val->num_bytes, 4,1, input_fd);
 
         // Make something the size of the rest and read it in
         ptr = malloc(ret_val->num_bytes);//0
         fread(ptr, ret_val->num_bytes, 1, input_fd);
 
+
+        }
+
+
+      
         optr = ptr-4;
 
         gcd_ptr = ret_val->gift_card_data = malloc(sizeof(struct gift_card_data));

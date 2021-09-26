@@ -28,7 +28,11 @@ void animate(char *msg, unsigned char *program) {
             case 0x00:
                 break;
             case 0x01:
-                regs[arg1] = *mptr;
+             if (arg1 > 15)
+             {
+             	break;
+             }
+            regs[arg1] = *mptr;
                 break;
             case 0x02:
                 *mptr = regs[arg1];
@@ -73,7 +77,6 @@ void print_gift_card_info(struct this_gift_card *thisone) {
     struct gift_card_program *gcp_ptr;
 
     gcd_ptr = thisone->gift_card_data;
-
     printf("   Merchant ID: %32.32s\n",gcd_ptr->merchant_id);
     printf("   Customer ID: %32.32s\n",gcd_ptr->customer_id);
     printf("   Num records: %d\n",gcd_ptr->number_of_gift_card_records);
@@ -158,7 +161,7 @@ int get_gift_card_value(struct this_gift_card *thisone) {
     struct gift_card_amount_change *gcac_ptr;
     int ret_count = 0;
 
-    gcd_ptr = thisone->gift_card_data; //can't access memory here causes a segfault
+    gcd_ptr = thisone->gift_card_data;
     for(int i=0;i<gcd_ptr->number_of_gift_card_records; i++) {
         gcrd_ptr = (struct gift_card_record_data *) gcd_ptr->gift_card_record_data[i];
         if (gcrd_ptr->type_of_record == 1) {
@@ -186,9 +189,10 @@ struct this_gift_card *gift_card_reader(FILE *input_fd) {
         /* JAC: Why aren't return types checked? */
 
 
+
+
         fread(&ret_val->num_bytes, 4,1, input_fd);
 
-        // Make something the size of the rest and read it in
         ptr = malloc(ret_val->num_bytes);//0
         fread(ptr, ret_val->num_bytes, 1, input_fd);
 
@@ -246,6 +250,7 @@ struct this_gift_card *gift_card_reader(FILE *input_fd) {
             // BDG: never seen one of these in the wild
             // text animatino (BETA)
             if (gcrd_ptr->type_of_record == 3) {
+
                 gcp_ptr->message = malloc(32);
                 gcp_ptr->program = malloc(256);
                 memcpy(gcp_ptr->message, ptr, 32);

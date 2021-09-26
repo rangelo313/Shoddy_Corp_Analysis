@@ -50,7 +50,7 @@ void setupgc() {
 void writegc() {
 	FILE* fd1;
 	// JAC: Why don't any of these check for error return codes?!?
-	fd1 = fopen("hang.gft", "w");
+	fd1 = fopen("crash1.gft", "w");
 	fwrite(&examplegc.num_bytes, 4, 1, fd1);
 	fwrite(examplegcd.merchant_id, 32, 1, fd1);
 	fwrite(examplegcd.customer_id, 32, 1, fd1);
@@ -70,8 +70,8 @@ int main(void) {
 	setupgc();
 	hang.message = malloc(128);
 	hang.program = malloc(256);
-	hang.program[0] = 0x09;
-	hang.program[1] = -3;
+	hang.program[0] = 0x01;
+	hang.program[1] = 72;
 	writegc();
 	return -1;
 }
