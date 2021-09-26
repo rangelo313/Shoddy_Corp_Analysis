@@ -1,0 +1,26 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: configure
+
+    - name: ""
+      run: ./giftcardreaderfix 1 ./part2/tests/crash1.gft 
+      
+    - name: ""
+      run: ./giftcardreaderfix 1 ./part2/tests/crash2.gft
+      
+    - name: ""
+      run: ./giftcardreaderfix 1 ./part2/tests/hang.gft
+      
