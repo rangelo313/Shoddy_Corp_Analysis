@@ -16,28 +16,31 @@ Creating 'giftcardreaderfix.c.gcov'
 
 
 
-./giftcardreaderfix 1 hang.gft 
-./giftcardreaderfix 2 hang.gft  
-./giftcardreaderfix 1 crash1.gft
-./giftcardreaderfix 2 crash1.gft
-./giftcardreader 1 crash2.gft
-./giftcardreader 2 crash2.gft
-./giftcardreader 1 cov1.gft #change record type or change variable to Increase coverage
-./giftcardreader 2 cov1.gft 
-./giftcardreader 1 cov2.gft #change type of record
-./giftcardreader 2 cov2.gft
+./giftcardreaderfix 1 cov1.gft #change record type or change variable to Increase coverage
+./giftcardreaderfix 2 cov1.gft 
+./giftcardreaderfix 1 cov2.gft #change type of record
+./giftcardreaderfix 2 cov2.gft
 ./giftcardreader 1 AFL1.gft
 ./giftcardreader 2 AFL1.gft
 ./giftcardreader 1 AFL1.gf
 ./giftcardreader 2 AFL2.gft
 
-./giftcardreaderfix 1 hang.gft && ./giftcardreaderfix 2 hang.gft && ./giftcardreaderfix 1 crash1.gft && ./giftcardreaderfix 2 crash1.gft && ./giftcardreaderfix 1 crash2.gft && ./giftcardreaderfix 2 crash2.gft  && ./giftcardreaderfix 1 fuzz1.gft && ./giftcardreaderfix 1 fuzz2.gft  && ./giftcardreaderfix 1 cov1.gft && ./giftcardreaderfix 2 cov1.gft && ./giftcardreaderfix 1 cov2.gft && ./giftcardreaderfix 2 cov2.gft 
+File 'giftcardreaderfix.c'
+Lines executed:54.97% of 171
+Creating 'giftcardreaderfix.c.gcov'
+
+Percentage increase = 54.97-54.39
+
+
+
+
+
+
+./giftcardreaderfix 1 hang.gft && ./giftcardreaderfix 2 hang.gft && ./giftcardreaderfix 1 crash1.gft && ./giftcardreaderfix 2 crash1.gft && ./giftcardreaderfix 1 crash2.gft && ./giftcardreaderfix 2 crash2.gft  && ./giftcardreaderfix 1 fuzz/fuzz1.gft && ./giftcardreaderfix 2 fuzz/fuzz1.gft && ./giftcardreaderfix 1 fuzz/fuzz2.gft && ./giftcardreaderfix 2 fuzz/fuzz2.gft  && ./giftcardreaderfix 1 fuzz/cov1.gft && ./giftcardreaderfix 2 fuzz/cov1.gft && ./giftcardreaderfix 1 fuzz/cov2.gft && ./giftcardreaderfix 2 fuzz/cov2.gft 
 
 
 rm  giftcardreaderfix.gcda giftcardreaderfix.gcno #if attempting to show increased coverage will get error.
 
-./giftcardreader 1 part2/crash1.gft 
-./giftcardreader 1 part2/crash2.gft 
 
 
 gcov giftcardreader #reads gcda file to produce 
