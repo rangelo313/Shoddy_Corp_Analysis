@@ -23,11 +23,11 @@ struct gift_card_program hang;
 //  (JAC: This is so wrong.  Global variable use / initialization is a 
 //  terrible thing to do.)
 void setupgc() {
-	examplegc.num_bytes = 116;
+	examplegc.num_bytes = 116; //500
 	examplegc.gift_card_data = (void *) &examplegcd;
 	examplegcd.merchant_id = "GiftCardz.com                   ";
 	examplegcd.customer_id = "DuaneGreenes Store 1451         ";
-	examplegcd.number_of_gift_card_records = 1;
+	examplegcd.number_of_gift_card_records = 1; 
 
 	/* JAC: Something seems fishy... */
 	examplegcd.gift_card_record_data = malloc(examplegcd.number_of_gift_card_records);
@@ -73,7 +73,7 @@ setupgc();
 hang.message = malloc(128);
  hang.program = malloc(128);
 
- hang.program[0] = 0x09;
+ hang.program[0] = 0x09; 
  //hang.program[1] = 127;
  //hang.program[2] = 20;
 	writegc();
