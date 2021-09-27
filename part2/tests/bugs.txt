@@ -1,4 +1,4 @@
-#BUGS
+Please ignore this file and defer to the writeup.md
 
 Crash case 1:
 Crash case one was created by setting the value of the num_bytes variable to a negative int and making it exceed the maximum integer value. 
