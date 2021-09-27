@@ -18,8 +18,3 @@ Hang Case:
 The hang case is an interesting one that took me a while to exploit. Taking a look at the switch in the while loop of the animate function, there are various cases accessible by setting the program variable correctly. 0x09 and 0x010 are both cases that will cause the pc variable to add the arg value. 0x010 uses a condition for zf variable, so I immediately went with 0x09. The unsigned char *pc counter reads 3 bytes. In this case this will decrement the value of pc if it is set to a negative value, so the position will technically move backwards and the pc > program + 256 will never be met, thus causing an infinite loop, because sthe while loop condition is not going to be met where pc moves backwards by 3 .
 
 
-Cov1.gft
-I intentionally made the type of record equal to one, allocated the default 116 bytes for this and set the number of records equal to five to increase coverage.
-
-Cov2.gft
-I intentionally gave this file more bytes, left the type of record equal to 3; set program argument 1 equal to (program[1] = 0x03 to execute instruction 3 and program[2] to 7 and successfully compiled
