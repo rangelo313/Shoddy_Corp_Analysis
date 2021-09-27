@@ -1,4 +1,4 @@
-#TESTING
+<h1>testing</h1>
 
 I first began my part three by compiling with gcc:
 gcc -g --coverage giftcardreaderfix.c -o giftcardreaderfix
