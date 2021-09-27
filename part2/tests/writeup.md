@@ -1,4 +1,4 @@
-#BUGS
+<h1>Bugs</h1>
 
 Crash case 1:
 Crash case one was created by setting the value of the num_bytes variable to a negative integer and making it exceed the maximum integer value. In this way, the line fread(ptr, ret_val->num_bytes, 1, input_fd); is not able to read from a value of num_bytes as a negative space to read is nonexistent and the error will read: Thread 2 received signal SIGSEGV, Segmentation fault - upon testing. Even if the user were to take the absolute value of the parameter, it will result in an integer overflow.  
