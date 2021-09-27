@@ -1,3 +1,4 @@
+#TESTING
 
 I first began my part three by compiling with gcc:
 gcc -g --coverage giftcardreaderfix.c -o giftcardreaderfix
