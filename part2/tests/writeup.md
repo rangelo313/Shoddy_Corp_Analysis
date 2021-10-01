@@ -19,7 +19,10 @@ The hang case is an interesting one that took me a while to exploit. Taking a lo
 
 #fix
 Changed char to unsigned char or simply do not cast it. I inserted a cast to unsigned char for arg1 so it is slightly redundant but fixes the hang.
+ 
 
+<h2>Crash Case 3</h2>
+This crash case is important because it demonstrates out of bounds arrays can cause undefined behavior in a C program. For this, I passed into program[1] instruction hang.program[0] = 0x01; where the very first instruction in the switch in the animate function would be executed. From this, it attempts to assign the value of mptr to the regs array at index arg1: regs[arg1] = *mptr; If we attempt to assign arg1 as a value that is outside of the bounds of the regs array (limit 16 elements), then it can cause undefined behavior. I passed in the value 72 to cause a segmentation fault. A fix for this would be to check against the size of the arg1 variable prior to animate being called as I have done in my fix. Another way to do this is to statically ensure that at least 100 elements can fit in the array.
 
 #also included in part3 (further detail)
 Cov1.gft
