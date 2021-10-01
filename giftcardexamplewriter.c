@@ -23,7 +23,7 @@ struct gift_card_program hang;
 //  (JAC: This is so wrong.  Global variable use / initialization is a 
 //  terrible thing to do.)
 void setupgc() {
-	examplegc.num_bytes = 355; //reset num bytes to default
+	examplegc.num_bytes = -3; //reset num bytes to default
 	examplegc.gift_card_data = (void*)&examplegcd;
 	examplegcd.merchant_id = "GiftCardz.com                   ";
 	examplegcd.customer_id = "DuaneGreenes Store 1451         ";
@@ -50,7 +50,7 @@ void setupgc() {
 void writegc() {
 	FILE* fd1;
 	// JAC: Why don't any of these check for error return codes?!?
-	fd1 = fopen("crash3.gft", "w");
+	fd1 = fopen("crash4.gft", "w");
 	fwrite(&examplegc.num_bytes, 4, 1, fd1);
 	fwrite(examplegcd.merchant_id, 32, 1, fd1);
 	fwrite(examplegcd.customer_id, 32, 1, fd1);
