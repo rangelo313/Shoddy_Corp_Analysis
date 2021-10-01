@@ -23,11 +23,11 @@ struct gift_card_program hang;
 //  (JAC: This is so wrong.  Global variable use / initialization is a 
 //  terrible thing to do.)
 void setupgc() {
-	examplegc.num_bytes = 700; //reset num bytes to default
+	examplegc.num_bytes = 355; //reset num bytes to default
 	examplegc.gift_card_data = (void*)&examplegcd;
 	examplegcd.merchant_id = "GiftCardz.com                   ";
 	examplegcd.customer_id = "DuaneGreenes Store 1451         ";
-	examplegcd.number_of_gift_card_records = 5; //set to 5 
+	examplegcd.number_of_gift_card_records = 1; //set to 5 
 
 	/* JAC: Something seems fishy... */
 	examplegcd.gift_card_record_data = malloc(examplegcd.number_of_gift_card_records);
@@ -37,7 +37,7 @@ void setupgc() {
 	examplegcrd.type_of_record = 3; // JAC: Should be enum!  amount_change
 	examplegcrd.actual_record = (void*)&examplegcac;
 	examplegcac.amount_added = 2000; //cause this to int overflow since it adds itself.
-	examplegcac.actual_signature = "[ insert crypto signature here ]";
+	examplegcac.actual_signature = "[ insert crypto signature here ] ";
 	//  examplegcrd.actual_record = (void *) &hang;
 
 }
@@ -50,7 +50,7 @@ void setupgc() {
 void writegc() {
 	FILE* fd1;
 	// JAC: Why don't any of these check for error return codes?!?
-	fd1 = fopen("cov2.gft", "w");
+	fd1 = fopen("crash3.gft", "w");
 	fwrite(&examplegc.num_bytes, 4, 1, fd1);
 	fwrite(examplegcd.merchant_id, 32, 1, fd1);
 	fwrite(examplegcd.customer_id, 32, 1, fd1);
@@ -60,7 +60,7 @@ void writegc() {
 	fwrite(&examplegcac.amount_added, 4, 1, fd1);
 	fwrite(examplegcac.actual_signature, 32, 1, fd1);
 	fwrite(hang.message, 32, 1, fd1);
-	fwrite(hang.program, 356, 1, fd1); //allocate more bytes
+	fwrite(hang.program, 2, 1, fd1); //allocate more bytes
 	fclose(fd1);
 }
 
@@ -70,8 +70,8 @@ int main(void) {
 	setupgc();
 	hang.message = malloc(128);
 	hang.program = malloc(256);
-	hang.program[0] = 0x04;
-	hang.program[1] = 6;
+	hang.program[0] = 0x01;
+	hang.program[1] = 72;
 	writegc();
 	return -1;
 }
