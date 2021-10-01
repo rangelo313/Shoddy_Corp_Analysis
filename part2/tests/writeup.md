@@ -24,9 +24,14 @@ Changed char to unsigned char or simply do not cast it. I inserted a cast to uns
 <h2>Crash Case 3</h2>
 This crash case is important because it demonstrates out of bounds arrays can cause undefined behavior in a C program. For this, I passed into program[1] instruction hang.program[0] = 0x01; where the very first instruction in the switch in the animate function would be executed. From this, it attempts to assign the value of mptr to the regs array at index arg1: regs[arg1] = *mptr; If we attempt to assign arg1 as a value that is outside of the bounds of the regs array (limit 16 elements), then it can cause undefined behavior. I passed in the value 72 to cause a segmentation fault. A fix for this would be to check against the size of the arg1 variable prior to animate being called as I have done in my fix. Another way to do this is to statically ensure that at least 100 elements can fit in the array.
 
+<h2>Crash Case 4</h2>
+The last crash case that I could come up with was setting num_bytes variable to a negative number. This is so that fread(ret_val->numbytes) reads from an invalid location in memory (a page cannot be read from a negative value) and will cause segmentation fault. The immediate fix for this is checking the value of ret_val->numbytes prior to reading in the number of bytes.
+
 #also included in part3 (further detail)
 Cov1.gft
 I intentionally made the type of record equal to one, allocated the default 116 bytes for this and set the number of records equal to five to increase coverage.
 
 Cov2.gft
 I intentionally gave this file more bytes, left the type of record equal to 3; set program argument 1 equal to (program[1] = 0x03 to execute instruction 3 and program[2] to 7 and successfully compiled
+
+
